@@ -1,0 +1,21 @@
+name: Fetch OTC stock data and push to backend
+
+on:
+  schedule:
+    - cron: '*/5 1-4 * * 1-5'
+    - cron: '0,5,10,15,20,25,30 5 * * 1-5'
+  workflow_dispatch: {}
+
+jobs:
+  fetch-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Fetch TPEx data and push to Worker
+        env:
+          WORKER_URL: ${{ secrets.WORKER_URL }}
+          INGEST_SECRET: ${{ secrets.INGEST_SECRET }}
+        run: node scripts/fetch-and-push-otc.mjs
