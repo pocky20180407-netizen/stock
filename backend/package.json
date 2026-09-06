@@ -1,0 +1,10 @@
+{
+  "name": "tw-stock-sim-backend",
+  "private": true,
+  "type": "module",
+  "description": "台股模擬交易APP後端：Cloudflare Worker，負責抓資料、選股、模擬交易，每5分鐘自動執行一次",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "test": "node test-sanity.mjs && node test-data-parsing.mjs && node test-trading.mjs && node test-index.mjs"
+  }
+}

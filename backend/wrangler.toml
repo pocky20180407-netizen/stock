@@ -1,0 +1,15 @@
+name = "tw-stock-sim-backend"
+main = "src/index.js"
+compatibility_date = "2026-08-01"
+
+# D1 資料庫綁定：database_id 要等你在 Cloudflare 建立資料庫後才會拿到，
+# 之後帶你申請帳號、建立資料庫時，我會告訴你怎麼把這裡填上去
+[[d1_databases]]
+binding = "DB"
+database_name = "tw-stock-sim-db"
+database_id = "e49584c9-8250-4a2e-ab4b-68064e0cc2ff"
+
+# 交易時段（台北時間 09:00-13:30，週一到週五）換算成 UTC 是 01:00-05:30
+# 拆成兩段 cron 是為了精準卡在13:30收盤，避免13:30之後還繼續空轉
+[triggers]
+crons = ["*/5 1-4 * * 1-5", "0,5,10,15,20,25,30 5 * * 1-5"]
