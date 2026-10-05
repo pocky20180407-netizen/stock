@@ -1,0 +1,108 @@
+/*
+  設計方向：台灣股市看盤／下單介面的視覺語言——資訊密度高、數字為主角、
+  漲跌用台灣慣例（紅漲、綠跌，跟歐美相反）。避免用單純的近黑背景＋一個霓虹色這種通用AI配色，
+  改用偏藍的深墨色調（比較像交易終端機的螢幕色），品牌強調色用金銅色（呼應「價值／金融」的聯想，
+  也跟紅漲、綠跌的語意色明確區分開，不會搞混）。
+*/
+
+:root {
+  /* 色彩 */
+  --bg: #12161c;
+  --surface: #1a2029;
+  --surface-raised: #232b37;
+  --border: #2a323f;
+  --text: #e8e6e0;
+  --text-muted: #8b92a0;
+  --text-faint: #5c6472;
+
+  --gain: #e4483d; /* 台灣慣例：紅漲 */
+  --gain-bg: rgba(228, 72, 61, 0.12);
+  --loss: #2fae6b; /* 台灣慣例：綠跌 */
+  --loss-bg: rgba(47, 174, 107, 0.12);
+  --accent: #d9a441; /* 品牌強調色：金銅色 */
+  --accent-bg: rgba(217, 164, 65, 0.14);
+
+  /* 字級（手機優先） */
+  --fs-display: 1.75rem;
+  --fs-h1: 1.25rem;
+  --fs-h2: 1rem;
+  --fs-body: 0.9375rem;
+  --fs-label: 0.8125rem;
+  --fs-micro: 0.6875rem;
+
+  /* 間距 */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+
+  --font-sans: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 數字一律用等寬數字對齊，這是看盤介面的基本要求，不然表格裡的價格會參差不齊 */
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--accent-bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
