@@ -48,9 +48,30 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('strategies');
   const [library, setLibrary] = useState(null);
 
+  const [loadError, setLoadError] = useState('');
+  const [attempt, setAttempt] = useState(0);
+
   useEffect(() => {
-    api.getConditions().then((data) => setLibrary(data.conditions));
-  }, []);
+    setLoadError('');
+    api
+      .getConditions()
+      .then((data) => {
+        if (!Array.isArray(data.conditions)) throw new Error('後端沒有回傳條件庫，可能還沒部署最新版本');
+        setLibrary(data.conditions);
+      })
+      .catch((err) => setLoadError(err.message));
+  }, [attempt]);
+
+  if (loadError) {
+    return (
+      <div className="app-loading" style={{ flexDirection: 'column', gap: 16, padding: 24, textAlign: 'center' }}>
+        <p className="error-text">{loadError}</p>
+        <button className="primary-btn" onClick={() => setAttempt((n) => n + 1)}>
+          重新載入
+        </button>
+      </div>
+    );
+  }
 
   if (!library) {
     return (
